@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {products} from '../product';
+import {findIndex} from "rxjs/operators";
 
 @Component({
   selector: 'app-product-list',
@@ -9,7 +10,12 @@ import {products} from '../product';
 export class ProductListComponent implements OnInit {
   products = products;
 
-  constructor() { }
+  constructor() {
+    this.products.forEach(product => {
+      // @ts-ignore
+      product.id = this.products.indexOf(product);
+    });
+  }
 
   share(): void {
     window.alert('The product has been shared!');
